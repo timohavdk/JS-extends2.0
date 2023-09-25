@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<button>Add 1</button>
+<span>0</span>
+<script>
+
+	/** Bind, Call, Apply example */
+		// ---
+	const JackPerson = {
+			name:              'Jack',
+			age:               23,
+			job:               'developer',
+			introduceYourself() {
+				console.log(this);
+				console.log(`Hi, my name is ${this.name}! I am ${this.age} years old`);
+			},
+			jobInfo(experience, company) {
+				console.log(`I'm ${this.job}, ${experience} years, in ${company}`);
+			},
+			projectInfo(project, anotherProject, lastProject) {
+				console.log(`As a ${this.job} I'm created: `)
+				console.log(project);
+				console.log(anotherProject);
+				console.log(lastProject);
+			}
+		}
+
+	const MikePerson = {
+		name: 'Mike',
+		job:  'analytic',
+		age:  28,
+	}
+
+	const project = ['Search', 'Taxi', 'Delivery'];
+	JackPerson.introduceYourself();
+	JackPerson.introduceYourself.bind(MikePerson)();
+	JackPerson.jobInfo.call(MikePerson, 7, 'Yandex');
+	JackPerson.projectInfo.apply(MikePerson, project);
+
+	// ---
+
+	class Counter {
+		init() {
+			this.button     = document.querySelector('button');
+			this.countBlock = document.querySelector('span');
+			this.countValue = Number(this.countBlock.innerText);
+			const counter   = this;
+
+			const color = '#afafaf';
+
+			this.button.addEventListener('click', this.addOne.bind(counter, event, color));
+		};
+
+		addOne(event, color) {
+			this.countValue += 1;
+			this.countBlock.innerText             = this.countValue;
+			this.countBlock.style.backgroundColor = color;
+		}
+	}
+
+	const counter = new Counter();
+	counter.init();
+
+</script>
+</body>
+</html>

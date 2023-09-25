@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es6",
+    "module": "es6",
+    "strict": false,
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "useDefineForClassFields": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "declaration": false,
+    "strictPropertyInitialization": false,
+    "paths": {
+      "@/*": [
+        "./src/app/*"
+      ]
+    }
+  },
+  "types": [
+    "vue"
+  ],
+  "include": [
+      "src/**/**/*.ts",
+      "src/**/*.ts",
+      "src/**/**/*.vue",
+	  "src/**/*.ts",
+	  "src/*.ts",
+	  "src/**/*.vue",
+	  "src/components/vuex.d.ts",
+      "shims-vue.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+}
