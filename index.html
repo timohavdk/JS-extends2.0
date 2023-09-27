@@ -5,16 +5,18 @@
 	<title>Title</title>
 </head>
 <body>
-<button>Add 1</button>
-<span>0</span>
+<button button-id="123456">Add 1</button>
+<span>0</span><br>
+<button add>Add 1</button>
+<button minus>Minus 1</button>
+<span count>0</span>
 <script>
-
-	/** Bind, Call, Apply example */
+	/** BIND, CALL, APPLY */
 		// ---
 	const JackPerson = {
-			name:              'Jack',
-			age:               23,
-			job:               'developer',
+			name: 'Jack',
+			age:  23,
+			job:  'developer',
 			introduceYourself() {
 				console.log(this);
 				console.log(`Hi, my name is ${this.name}! I am ${this.age} years old`);
@@ -44,16 +46,20 @@
 
 	// ---
 
-	class Counter {
+	/**/
+	class Upper {
+		#id;
+
 		init() {
 			this.button     = document.querySelector('button');
+			this.#id        = this.button.getAttribute('['+'button-id'+']')
 			this.countBlock = document.querySelector('span');
 			this.countValue = Number(this.countBlock.innerText);
-			const counter   = this;
+			const upper   = this;
 
 			const color = '#afafaf';
 
-			this.button.addEventListener('click', this.addOne.bind(counter, event, color));
+			this.button.addEventListener('click', this.addOne.bind(upper, event, color));
 		};
 
 		addOne(event, color) {
@@ -63,9 +69,77 @@
 		}
 	}
 
-	const counter = new Counter();
-	counter.init();
+	const upper = new Upper();
+	upper.init();
+	/**/
+	/** OOP JS */
+	/*
+		Нет множественного наследования
+		Все методы и свойства публичные по умолчанию
+		По факту это синтаксический сахар
+	*/
 
+	// console.log('id', counter.#id) // -- Пытаемся получить доступ
+
+	/** GLOBAL OBJECT */
+	/*
+	    Браузер - window
+	    NodeJs  - global
+	 */
+	window.appName = "JS extend level"
+
+	/** OBJECT PROTOTYPE */
+	const adder = {
+		initAdd() {
+			this.button     = document.querySelector('[' + 'add' + ']');
+			this.countBlock = document.querySelector('[' + 'count' + ']');
+			this.countValue = Number(this.countBlock.innerText);
+			const upper     = this;
+
+			const color = '#afafaf';
+
+			this.button.addEventListener('click', this.addOne.bind(upper, event, color));
+		},
+
+		addOne(event, color) {
+			this.countValue += 1;
+			this.countBlock.innerText             = this.countValue;
+			this.countBlock.style.backgroundColor = color;
+		}
+	}
+
+	const counter = {
+		__proto__: adder,
+		init() {
+			this.button_minus = document.querySelector('[' + 'minus' + ']');
+			this.button_plus = document.querySelector('[' + 'add' + ']');
+			this.countBlock = document.querySelector('[' + 'count' + ']');
+			this.countValue = Number(this.countBlock.innerText);
+			const counter = this;
+
+			const color_1 = '#049404';
+			const color_2 = '#afafaf';
+
+			this.button_minus.addEventListener('click', this.minusOne.bind(counter, event, color_1));
+			this.button_plus.addEventListener('click', this.__proto__.addOne.bind(counter, event, color_2));
+		},
+		minusOne(event, color) {
+			this.countValue                       -= 1;
+			this.countBlock.innerText             = this.countValue;
+			this.countBlock.style.backgroundColor = color;
+		},
+	}
+
+
+	counter.init();
+	console.log('counter', counter);
+
+	/** LOCALSTORAGE - SESSIONSTORAGE */
+	window.localStorage.setItem('local', '1');
+	window.sessionStorage.setItem('session', '1')
+</script>
+<script>
+	// console.log('App name', window.appName) // -- Выводим имя приложения
 </script>
 </body>
 </html>
